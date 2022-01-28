@@ -3,13 +3,13 @@ package data
 // Build Context
 type Build struct {
 	// Init phase, should always succeed
-    init *string
+    init []string
 	// Run unit test, can fail, i won't judge
-	test *string
+	test []string
 	// Run build phase, should always succeed
-	build *string
+	build []string
 	// Run publishing phase, should always succeed
-	publish *string
+	publish []string
 }
 
 // Project Context
@@ -23,7 +23,7 @@ type Project struct {
 	// Build receipe of a project
 	BuildContext Build
 	// Dependencies, will hint at build order
-	Dependencies *string
+	Dependencies []string
 }
 
 // Current Context
@@ -35,7 +35,7 @@ type CurrentConfig struct {
 	// fix_mem_leak for a devel
     Name string
 	// List of projects descriptions
-	Projects *Project
+	Projects []Project
 }
 
 // Root configuration

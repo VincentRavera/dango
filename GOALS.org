@@ -17,21 +17,30 @@ hidden
 #+begin_src bash
 dango config # Print current config
 #+end_src
-** TODO Init dango
+** DONE Init dango
 :LOGBOOK:
+- State "DONE"       from "TODO"       [2022-01-29 Sat 00:06]
 - State "TODO"       from              [2022-01-28 Fri 13:47]
 :END:
 #+begin_src bash
 dango init # Create the managing project
 #+end_src
+** TODO Check / Merge inconsistancies between reality and expected
+:LOGBOOK:
+- State "TODO"       from              [2022-01-29 Sat 00:06]
+:END:
+* UI
+** TODO Try Charm cute UI
+:LOGBOOK:
+- State "TODO"       from "DONE"       [2022-01-29 Sat 00:08]
+:END:
 * VCS
 ** TODO Add
 :LOGBOOK:
 - State "TODO"       from              [2022-01-28 Fri 13:54]
 :END:
 Add project to configuration
-Guess what project it is
-Guess main branch
+Guess A lot of things
 #+begin_src bash
 dango add git@gilab.com/totoro/forest
 #+end_src

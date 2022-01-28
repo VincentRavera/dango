@@ -1,13 +1,9 @@
 package cmd
 
 import (
-	"encoding/json"
-	"fmt"
-	"io/ioutil"
 	"log"
-	"os"
 
-	"github.com/VincentRavera/dango/data"
+	"github.com/VincentRavera/dango/utils"
 	"github.com/spf13/cobra"
 )
 
@@ -18,53 +14,7 @@ var Config = &cobra.Command{
 	Args:   cobra.NoArgs,
 	RunE: func(cmd *cobra.Command, args []string) error {
 		logger := log.Default()
-		GetConfig(*logger)
+		utils.GetConfig(*logger)
 		return nil
 	},
-}
-
-func processErrs(e error, l log.Logger) {
-	if e != nil {
-		l.Fatal(e)
-		os.Exit(1)
-	}
-}
-
-func GetConfig(l log.Logger) data.RootConfig {
-	rootpath := os.Getenv("DANGO_ROOT")
-	if len(rootpath) == 0 {
-		var e error
-		rootpath, e = os.Getwd()
-		processErrs(e, l)
-	}
-	l.Printf("DANGO_ROOT=%s\n", rootpath)
-
-	batch := false
-	batch_mode := os.Getenv("DANGO_BATCH")
-	if len(batch_mode) > 0 {
-		batch = true
-	}
-	l.Printf("DANGO_BATCH=%t\n", batch)
-
-	currentJsonPath := fmt.Sprintf("%s/current.json", rootpath)
-
-	config := data.RootConfig{
-		RootPath: rootpath,
-		Batch: batch,
-		Configuration: ParseConfig(currentJsonPath, l),
-	}
-	l.Print(config)
-
-	return config
-}
-
-// https://tutorialedge.net/golang/parsing-json-with-golang/
-func ParseConfig(path string, l log.Logger) data.CurrentConfig {
-	jsonFile, err := os.Open(path)
-	processErrs(err, l)
-	byteValue, err := ioutil.ReadAll(jsonFile)
-	processErrs(err, l)
-	var currentConfig data.CurrentConfig
-	json.Unmarshal(byteValue, &currentConfig)
-	return currentConfig
 }
