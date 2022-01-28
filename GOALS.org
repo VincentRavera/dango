@@ -1,0 +1,109 @@
+#+TITLE: Goals
+* Config
+** TODO Read env var
+:LOGBOOK:
+- State "TODO"       from              [2022-01-28 Fri 13:48]
+:END:
+Read env var to determine where the root is
+hidden
+** TODO Read json
+:LOGBOOK:
+- State "TODO"       from              [2022-01-28 Fri 13:47]
+:END:
+read config fro managing project
+hidden
+#+begin_src bash
+dango config # Print current config
+#+end_src
+** TODO Init dango
+:LOGBOOK:
+- State "TODO"       from              [2022-01-28 Fri 13:47]
+:END:
+#+begin_src bash
+dango init # Create the managing project
+#+end_src
+* VCS
+** TODO Add
+:LOGBOOK:
+- State "TODO"       from              [2022-01-28 Fri 13:54]
+:END:
+Add project to configuration
+Guess what project it is
+Guess main branch
+#+begin_src bash
+dango add git@gilab.com/totoro/forest
+#+end_src
+** TODO Clone
+:LOGBOOK:
+- State "TODO"       from              [2022-01-28 Fri 13:46]
+:END:
+#+begin_src bash
+dango clone # run git clone on every project in config
+#+end_src
+** TODO Status
+:LOGBOOK:
+- State "TODO"       from              [2022-01-28 Fri 13:46]
+:END:
+#+begin_src bash
+dango status # Print all projects status
+#+end_src
+** TODO Checkout for development
+:LOGBOOK:
+- State "TODO"       from              [2022-01-28 Fri 13:46]
+:END:
+#+begin_src bash
+dango checkout NAME_OF_DEV # Create a development
+#+end_src
+** TODO Prepare release
+:LOGBOOK:
+- State "TODO"       from              [2022-01-28 Fri 13:46]
+:END:
+#+begin_src bash
+dango release prepare # Create a release, fix commits
+#+end_src
+** TODO Publish Realease
+:LOGBOOK:
+- State "TODO"       from              [2022-01-28 Fri 13:46]
+:END:
+#+begin_src bash
+dango release publish # Publish git tags, build artifacts
+#+end_src
+* Build
+** TODO Solve dependencies
+:LOGBOOK:
+- State "TODO"       from              [2022-01-28 Fri 13:46]
+:END:
+Able to solve dependencies to obtain the order/tree to build
+hidden
+** TODO Build one
+:LOGBOOK:
+- State "TODO"       from              [2022-01-28 Fri 13:46]
+:END:
+build only the project
+#+begin_src bash
+dango build PROJECT_NAME
+#+end_src
+** TODO Build all
+:LOGBOOK:
+- State "TODO"       from              [2022-01-28 Fri 13:46]
+:END:
+build project 1 to N
+#+begin_src bash
+dango build
+#+end_src
+** TODO Build from
+:LOGBOOK:
+- State "TODO"       from              [2022-01-28 Fri 13:46]
+:END:
+build from project  n to N
+#+begin_src bash
+dango build from PROJECT_NAME
+#+end_src
+** TODO Build to
+:LOGBOOK:
+- State "TODO"       from              [2022-01-28 Fri 13:46]
+:END:
+build project 1 to n
+#+begin_src bash
+dango build to PROJECT_NAME
+#+end_src
