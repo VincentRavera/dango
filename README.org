@@ -1,0 +1,3 @@
+#+TITLE: Dango
+
+Manage multiple projects with one command tool.
