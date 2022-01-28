@@ -1,13 +1,15 @@
 #+TITLE: Goals
 * Config
-** TODO Read env var
+** DONE Read env var
 :LOGBOOK:
+- State "DONE"       from "TODO"       [2022-01-28 Fri 22:30]
 - State "TODO"       from              [2022-01-28 Fri 13:48]
 :END:
 Read env var to determine where the root is
 hidden
-** TODO Read json
+** DONE Read json
 :LOGBOOK:
+- State "DONE"       from "TODO"       [2022-01-28 Fri 22:30]
 - State "TODO"       from              [2022-01-28 Fri 13:47]
 :END:
 read config fro managing project
@@ -67,6 +69,13 @@ dango release prepare # Create a release, fix commits
 :END:
 #+begin_src bash
 dango release publish # Publish git tags, build artifacts
+#+end_src
+** TODO Publish export
+:LOGBOOK:
+- State "TODO"       from              [2022-01-28 Fri 22:31]
+:END:
+#+begin_src bash
+dango release export # Create an archive from a build
 #+end_src
 * Build
 ** TODO Solve dependencies

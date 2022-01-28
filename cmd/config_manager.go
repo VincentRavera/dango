@@ -1,6 +1,9 @@
 package cmd
 
 import (
+	"encoding/json"
+	"fmt"
+	"io/ioutil"
 	"log"
 	"os"
 
@@ -42,9 +45,26 @@ func GetConfig(l log.Logger) data.RootConfig {
 		batch = true
 	}
 	l.Printf("DANGO_BATCH=%t\n", batch)
+
+	currentJsonPath := fmt.Sprintf("%s/current.json", rootpath)
+
 	config := data.RootConfig{
 		RootPath: rootpath,
 		Batch: batch,
+		Configuration: ParseConfig(currentJsonPath, l),
 	}
+	l.Print(config)
+
 	return config
+}
+
+// https://tutorialedge.net/golang/parsing-json-with-golang/
+func ParseConfig(path string, l log.Logger) data.CurrentConfig {
+	jsonFile, err := os.Open(path)
+	processErrs(err, l)
+	byteValue, err := ioutil.ReadAll(jsonFile)
+	processErrs(err, l)
+	var currentConfig data.CurrentConfig
+	json.Unmarshal(byteValue, &currentConfig)
+	return currentConfig
 }
