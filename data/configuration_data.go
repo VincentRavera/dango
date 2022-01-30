@@ -16,6 +16,8 @@ type Build struct {
 type Project struct {
 	// short name of the project
     Name string
+	// Path to the project usualy in DANGO_WORKSPACE
+    Location string
 	// Remote url to checkout the project
 	Url string
 	// Revision to set, can be a branch name or a tag
@@ -45,6 +47,8 @@ type RootConfig struct {
 	Configuration CurrentConfig
 	// Change root path
 	RootPath string
+	// Where to clone applications
+	WorkPath string
 	// Enables batch mode
 	Batch bool
 }

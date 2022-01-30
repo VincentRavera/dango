@@ -30,19 +30,21 @@ dango init # Create the managing project
 - State "TODO"       from              [2022-01-29 Sat 00:06]
 :END:
 * UI
-** TODO Try Charm cute UI
+** TODO Try bubbletea cute UI
 :LOGBOOK:
 - State "TODO"       from "DONE"       [2022-01-29 Sat 00:08]
 :END:
+- https://github.com/charmbracelet/bubbletea
 * VCS
 ** TODO Add
 :LOGBOOK:
 - State "TODO"       from              [2022-01-28 Fri 13:54]
 :END:
 Add project to configuration
-Guess A lot of things
+Guess/fetch A lot of things
 #+begin_src bash
 dango add git@gilab.com/totoro/forest
+dango add /path/to/project
 #+end_src
 ** TODO Clone
 :LOGBOOK:

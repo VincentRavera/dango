@@ -20,7 +20,7 @@ var Init = &cobra.Command{
 	RunE: func(cmd *cobra.Command, args []string) error {
 		logger := log.Default()
 		// cmd.Read
-		rootpath, _ := utils.ReadEnviron(*logger)
+		rootpath, _, _ := utils.ReadEnviron(*logger)
 
 		permissions := os.FileMode(0750)
 
@@ -32,13 +32,14 @@ var Init = &cobra.Command{
 		utils.ProcessSystemErrors(e, *logger)
 		defer gitignore.Close()
 
-		// Workspace
+		// Workspace just in case
 		gitignore.Write([]byte("workspace/"))
 		os.MkdirAll(fmt.Sprintf("%s/workspace", rootpath), permissions)
 
 		// current.json
 		currentJsonPath := fmt.Sprintf("%s/current.json", rootpath)
 		currentConfFile, e := os.Create(currentJsonPath)
+		defer currentConfFile.Close()
 		utils.ProcessSystemErrors(e, *logger)
 		cf := data.CurrentConfig{
 			Name: "main",

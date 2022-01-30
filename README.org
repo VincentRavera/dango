@@ -1,3 +1,9 @@
 #+TITLE: Dango
 
 Manage multiple projects with one command tool.
+
+** Environ variables
+#+begin_src bash
+export DANGO_ROOT="$HOME/workspace/DANGO_TEST" # The repository that acts as a database
+export DANGO_WORKSPACE="$HOME/workspace" # the directory where dango will download Project (if needed)
+#+end_src
