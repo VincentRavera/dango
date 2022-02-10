@@ -30,7 +30,7 @@ var Add = &cobra.Command{
 	},
 	Run: 	func(cmd *cobra.Command, args []string) {
 		l := log.Default()
-		rootConf := utils.GetConfig(*l)
+		rootConf := utils.GetConfig()
 		for _, value := range args {
 			// works for path and urls
 			projectName := filepath.Base(value)
@@ -81,8 +81,6 @@ func validateArg(arg string) bool {
 	isargExisting, _ := exists(arg)
 	if isargExisting {
 		return true
-	} else {
-		return false
 	}
 	return false
 

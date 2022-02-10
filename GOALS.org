@@ -25,9 +25,15 @@ dango config # Print current config
 #+begin_src bash
 dango init # Create the managing project
 #+end_src
-** TODO Check / Merge inconsistancies between reality and expected
+** INPROGRESS Implement mechanic to update/merge change into the configuration
 :LOGBOOK:
-- State "TODO"       from              [2022-01-29 Sat 00:06]
+- State "INPROGRESS" from "TODO"       [2022-02-11 Fri 00:23]
+- State "TODO"       from              [2022-02-10 Thu 21:00]
+:END:
+** DONE Unittests
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2022-02-11 Fri 00:18]
+- State "TODO"       from              [2022-02-11 Fri 00:18]
 :END:
 * UI
 ** TODO Try bubbletea cute UI

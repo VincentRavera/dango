@@ -3,7 +3,6 @@ package cmd
 import (
 	"encoding/json"
 	"fmt"
-	"log"
 	"os"
 
 	"github.com/VincentRavera/dango/data"
@@ -18,9 +17,8 @@ var Init = &cobra.Command{
 	Long:   "Initialize an empty dango project.",
 	Args:   cobra.NoArgs,
 	RunE: func(cmd *cobra.Command, args []string) error {
-		logger := log.Default()
 		// cmd.Read
-		rootpath, _, _ := utils.ReadEnviron(*logger)
+		rootpath, _, _ := utils.ReadEnviron()
 
 		permissions := os.FileMode(0750)
 
@@ -29,7 +27,7 @@ var Init = &cobra.Command{
 		os.Chdir(rootpath)
 		// Gitignore
 		gitignore ,e := os.Create(fmt.Sprintf("%s/.gitignore", rootpath))
-		utils.ProcessSystemErrors(e, *logger)
+		utils.ProcessSystemErrors(e)
 		defer gitignore.Close()
 
 		// Workspace just in case
@@ -40,14 +38,14 @@ var Init = &cobra.Command{
 		currentJsonPath := fmt.Sprintf("%s/current.json", rootpath)
 		currentConfFile, e := os.Create(currentJsonPath)
 		defer currentConfFile.Close()
-		utils.ProcessSystemErrors(e, *logger)
+		utils.ProcessSystemErrors(e)
 		cf := data.CurrentConfig{
 			Name: "main",
 			Type: "development",
 			Projects: []data.Project{},
 		}
 		cfbytes, e := json.Marshal(cf)
-		utils.ProcessSystemErrors(e, *logger)
+		utils.ProcessSystemErrors(e)
 		currentConfFile.Write(cfbytes)
 
 		return nil
