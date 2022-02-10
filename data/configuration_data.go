@@ -18,8 +18,8 @@ type Project struct {
     Name string
 	// Path to the project usualy in DANGO_WORKSPACE
     Location string
-	// Remote url to checkout the project
-	Url string
+	// Git remote name $(git remote)
+	Remote string
 	// Revision to set, can be a branch name or a tag
 	Revision string
 	// Build receipe of a project

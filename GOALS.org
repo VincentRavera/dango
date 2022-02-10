@@ -35,9 +35,15 @@ dango init # Create the managing project
 - State "TODO"       from "DONE"       [2022-01-29 Sat 00:08]
 :END:
 - https://github.com/charmbracelet/bubbletea
-* VCS
-** TODO Add
+** TODO Wrap logging so that the ui and the log can be swapped
 :LOGBOOK:
+- State "TODO"       from              [2022-02-09 Wed 14:55]
+:END:
+* VCS
+** DONE Add
+:LOGBOOK:
+- State "DONE"       from "INPROGRESS" [2022-02-10 Thu 15:11]
+- State "INPROGRESS" from "TODO"       [2022-01-30 Sun 01:09]
 - State "TODO"       from              [2022-01-28 Fri 13:54]
 :END:
 Add project to configuration
@@ -53,6 +59,7 @@ dango add /path/to/project
 #+begin_src bash
 dango clone # run git clone on every project in config
 #+end_src
+This is useful if someone new starts working on the project, or a new project was added by someone else
 ** TODO Status
 :LOGBOOK:
 - State "TODO"       from              [2022-01-28 Fri 13:46]

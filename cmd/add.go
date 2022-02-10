@@ -34,15 +34,27 @@ var Add = &cobra.Command{
 		for _, value := range args {
 			// works for path and urls
 			projectName := filepath.Base(value)
-			fmt.Println(projectName)
+			l.Printf("Adding %s ...", projectName)
 
 			path := value
 			if strings.HasPrefix(value, "http") || strings.HasPrefix(value, "git@") {
-				path = rootConf.WorkPath + projectName
-				git.PlainClone(path, false, nil)
+				path = filepath.Join(rootConf.WorkPath, projectName)
+				l.Printf("Cloning to %s ...", path)
+				_, err := git.PlainClone(path, false, &git.CloneOptions{
+					URL:      value,
+				})
+				if err != nil {
+					l.Fatalf("Error while clonning: %s", err)
+				}
 			}
-
-			utils.AddProject(utils.ScanPath(path), rootConf)
+			project, err := utils.ScanPath(path)
+			if err != nil {
+				l.Fatalf("Cannot scan path: %s", err)
+			}
+			err = utils.AddProject(project, rootConf)
+			if err != nil {
+				l.Fatal(err)
+			}
 		}
 	},
 }
@@ -56,19 +68,21 @@ func exists(path string) (bool, error) {
 	return false, err
 }
 func validateArg(arg string) bool {
+
+	// check string
 	if len(arg) < 0 {
 		return false
 	}
-	if strings.HasPrefix(arg, "/") {
-		isargExisting, _ := exists(arg)
-		if isargExisting {
-			return true
-		} else {
-			return false
-		}
-	}
+	// check if is URL
 	if strings.HasPrefix(arg, "http") || strings.HasPrefix(arg, "git@") {
 		return true
+	}
+	// check if is PATH
+	isargExisting, _ := exists(arg)
+	if isargExisting {
+		return true
+	} else {
+		return false
 	}
 	return false
 
