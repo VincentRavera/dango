@@ -23,10 +23,15 @@ func ScanPath(path string) (data.Project, error) {
 	if err != nil {
 		return data.Project{}, err
 	}
+	url, err := getProjectRemoteUrl(abpath)
+	if err != nil {
+		return data.Project{}, err
+	}
     return data.Project{
     	Name:         filepath.Base(path),
     	Location:     abpath,
 		Remote: remoteName,
+		URL: url,
     	Revision:     revision,
     	BuildContext: data.Build{},
     	Dependencies: []string{},
@@ -44,6 +49,19 @@ func getProjectRemote(path string) (string, error) {
 	}
 	remotename := remotes[0].Config().Name
 	return remotename, nil
+}
+
+func getProjectRemoteUrl(path string) (string, error) {
+	repo, err := git.PlainOpen(path)
+	if err != nil {
+		return "", fmt.Errorf("GitOpenError: %s", err)
+	}
+	remotes, err := repo.Remotes()
+	if err != nil {
+		return "", fmt.Errorf("GitOpenRemoteError: %s", err)
+	}
+	remoteurl := remotes[0].Config().URLs[0]
+	return remoteurl, nil
 }
 
 func getProjectRevision(path string) (string, error) {

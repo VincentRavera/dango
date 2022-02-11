@@ -55,21 +55,18 @@ func ReadEnviron() (string, string, bool) {
 		rootpath, e = os.Getwd()
 		ProcessSystemErrors(e)
 	}
-	l.Printf("DANGO_ROOT=%s\n", rootpath)
 
 	// Workspace path
 	workspace := os.Getenv("DANGO_WORKSPACE")
 	if len(rootpath) == 0 {
 		workspace = fmt.Sprintf("%s/workspace", rootpath)
 	}
-	l.Printf("DANGO_WORKSPACE=%s\n", workspace)
 
 	batch := false
 	batch_mode := os.Getenv("DANGO_BATCH")
 	if len(batch_mode) > 0 {
 		batch = true
 	}
-	l.Printf("DANGO_BATCH=%t\n", batch)
 	return rootpath, workspace, batch
 }
 
