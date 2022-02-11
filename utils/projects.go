@@ -75,6 +75,8 @@ func getProjectRevision(path string) (string, error) {
 	}
 	return ref.Name().String(), nil
 }
+
+// TODO: delegate writing
 func AddProject(project data.Project, rootC data.RootConfig) error {
 
 	rootC.Configuration.Projects = append(rootC.Configuration.Projects, project)

@@ -22,6 +22,15 @@ func ProcessSystemErrors(e error) {
 	}
 }
 
+// https://stackoverflow.com/a/10510783
+// exists returns whether the given file or directory exists
+func Exists(path string) (bool, error) {
+	_, err := os.Stat(path)
+	if err == nil { return true, nil }
+	if os.IsNotExist(err) { return false, nil }
+	return false, err
+}
+
 func GetConfig() data.RootConfig {
 	if rootConfig != nil {
 		return *rootConfig
@@ -86,17 +95,11 @@ func UpdateConfig(newRootConfig data.RootConfig) error {
 	rootConfig.RootPath = newRootConfig.RootPath
 	rootConfig.Configuration.Type = newRootConfig.Configuration.Type
 	rootConfig.Configuration.Name = newRootConfig.Configuration.Name
-	return mergeProjectList(newRootConfig.Configuration)
+	return nil
 }
 
-func mergeProjectList(currentConfig data.CurrentConfig) error {
-	// TODO Think about merging
-	// newProjectList := currentConfig.Projects
-	// currentProjectList := GetConfig().Configuration.Projects
-	// oriProjectList := originalRootConfig.Configuration.Projects
-	// panic("un")
-	return nil
-
+func UpdateProject(id int, updated data.Project) {
+	rootConfig.Configuration.Projects[id] = updated
 }
 
 func SaveConfig() error {

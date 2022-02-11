@@ -4,7 +4,6 @@ import (
 	"errors"
 	"fmt"
 	"log"
-	"os"
 	"path/filepath"
 	"strings"
 
@@ -59,14 +58,6 @@ var Add = &cobra.Command{
 	},
 }
 
-// https://stackoverflow.com/a/10510783
-// exists returns whether the given file or directory exists
-func exists(path string) (bool, error) {
-	_, err := os.Stat(path)
-	if err == nil { return true, nil }
-	if os.IsNotExist(err) { return false, nil }
-	return false, err
-}
 func validateArg(arg string) bool {
 
 	// check string
@@ -78,7 +69,7 @@ func validateArg(arg string) bool {
 		return true
 	}
 	// check if is PATH
-	isargExisting, _ := exists(arg)
+	isargExisting, _ := utils.Exists(arg)
 	if isargExisting {
 		return true
 	}
