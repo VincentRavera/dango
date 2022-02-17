@@ -180,3 +180,96 @@ func TestProcessSystemErrors(t *testing.T) {
 		})
 	}
 }
+
+func TestExists(t *testing.T) {
+	type args struct {
+		path string
+	}
+	tests := []struct {
+		name    string
+		args    args
+		want    bool
+		wantErr bool
+	}{
+		{"Test relative", args{path: "../test_resources/"}, true, false },
+		{"Test fail relative", args{path: "../XXXX"}, false, false },
+		{"Test Absolute", args{path: "/home"}, true, false },
+		{"Test Absolute", args{path: "/XXXX"}, false, false },
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			got, err := Exists(tt.args.path)
+			if (err != nil) != tt.wantErr {
+				t.Errorf("Exists() error = %v, wantErr %v", err, tt.wantErr)
+				return
+			}
+			if got != tt.want {
+				t.Errorf("Exists() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func TestUpdateProject(t *testing.T) {
+	rootPath := "../test_resources/utils/FAKE_ROOT"
+	os.Setenv("DANGO_ROOT", rootPath)
+	os.Setenv("DANGO_BATCH", "bb")
+	os.Setenv("DANGO_WORKSPACE", "cc")
+	GetConfig()
+	project, err := ScanPath("../")
+	if err != nil {
+		t.Error("Could not scan a project")
+	}
+	AddProject(project)
+	alteredProject := project
+	alteredProject.Name = "Altered"
+	type args struct {
+		id      int
+		updated data.Project
+	}
+	tests := []struct {
+		name string
+		args args
+	}{
+		{"Test0", args{0, alteredProject}},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			UpdateProject(tt.args.id, tt.args.updated)
+		})
+	}
+	newRC := GetConfig()
+	if newRC.Configuration.Projects[0].Name != alteredProject.Name {
+		t.Errorf("UpdateProject() = %v, want %v", newRC.Configuration.Projects[0], alteredProject)
+	}
+}
+
+func TestAddProject(t *testing.T) {
+	rootPath := "../test_resources/utils/FAKE_ROOT"
+	os.Setenv("DANGO_ROOT", rootPath)
+	os.Setenv("DANGO_BATCH", "bb")
+	os.Setenv("DANGO_WORKSPACE", "cc")
+	GetConfig()
+	project, err := ScanPath("../")
+	if err != nil {
+		t.Error("Could not scan a project")
+	}
+	type args struct {
+		newProject data.Project
+	}
+	tests := []struct {
+		name string
+		args args
+	}{
+		{ "Test 0", args{newProject: project} },
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			AddProject(tt.args.newProject)
+		})
+	}
+	newRC := GetConfig()
+	if newRC.Configuration.Projects[0].URL != project.URL {
+		t.Errorf("Expected %s but got %s", project.URL, newRC.Configuration.Projects[0].URL)
+	}
+}

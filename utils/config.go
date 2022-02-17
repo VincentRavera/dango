@@ -102,6 +102,11 @@ func UpdateProject(id int, updated data.Project) {
 	rootConfig.Configuration.Projects[id] = updated
 }
 
+func AddProject(newProject data.Project) {
+	rootConfig.Configuration.Projects =
+		append(rootConfig.Configuration.Projects, newProject)
+}
+
 func SaveConfig() error {
 	cfbytes, err := json.Marshal(&rootConfig.Configuration)
 	if err != nil {

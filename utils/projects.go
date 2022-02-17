@@ -1,10 +1,8 @@
 package utils
 
 import (
-	"encoding/json"
 	"errors"
 	"fmt"
-	"os"
 	"path/filepath"
 	"strings"
 
@@ -83,24 +81,7 @@ func getProjectRevision(path string) (string, error) {
 	}
 }
 
-// TODO: delegate writing
-func AddProject(project data.Project, rootC data.RootConfig) error {
-
-	rootC.Configuration.Projects = append(rootC.Configuration.Projects, project)
-	cfbytes, e := json.Marshal(rootC.Configuration)
-	if e != nil {
-		return fmt.Errorf("AddProject: %s", e)
-	}
-	currentJsonPath := fmt.Sprintf("%s/current.json", rootC.RootPath)
-	currentConfFile, e := os.Create(currentJsonPath)
-	defer currentConfFile.Close()
-	if e != nil {
-		return fmt.Errorf("AddProject: %s", e)
-	}
-	currentConfFile.Write(cfbytes)
-	return nil
-}
-
+// Clone the project, returns a log, or an error
 func CloneProject(id int, project data.Project, rc data.RootConfig) (string, error) {
 	output := ""
 	// Test location if is already present
@@ -165,7 +146,6 @@ func findMatchingRemoteBranch(referenceraw string, gp git.Repository) (*git.Chec
 		// This happen if the branch exist on remote but not local
 		// This won't happen on tags
 		// Let's guess
-		// var refs []plumbing.Reference
 		refs, _ := gp.References()
 		hasMatchReference := false
 		err = refs.ForEach(func(ref *plumbing.Reference) error {

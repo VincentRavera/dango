@@ -36,6 +36,7 @@ var Add = &cobra.Command{
 			l.Printf("Adding %s ...", projectName)
 
 			path := value
+			// Clone the project if the value is a remote
 			if strings.HasPrefix(value, "http") || strings.HasPrefix(value, "git@") {
 				path = filepath.Join(rootConf.WorkPath, projectName)
 				l.Printf("Cloning to %s ...", path)
@@ -50,7 +51,8 @@ var Add = &cobra.Command{
 			if err != nil {
 				l.Fatalf("Cannot scan path: %s", err)
 			}
-			err = utils.AddProject(project, rootConf)
+			utils.AddProject(project)
+			err = utils.SaveConfig()
 			if err != nil {
 				l.Fatal(err)
 			}
